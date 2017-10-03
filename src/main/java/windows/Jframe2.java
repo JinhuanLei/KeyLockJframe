@@ -19,7 +19,9 @@ class Jframe2 extends JFrame implements ActionListener {
     HashSet<Lock1> l1=null;
     HashSet<KeyLock> kl1=null;
     JTextArea jtakey;
-    JScrollPane jsp;
+    JScrollPane jsp;       //key
+    JTextArea jtalock;
+    JScrollPane sp ;   //lock
     public static void main(String[] args) {
         // TODO Auto-generated method stub
        Jframe2 test=new Jframe2();
@@ -78,10 +80,8 @@ class Jframe2 extends JFrame implements ActionListener {
            UpdateKeyButton.addActionListener(this);
 
             jtakey=new JTextArea(100,100);
-           jtakey.setBounds(900,70,500,350);
+           //jtakey.setBounds(900,70,500,350);
            jtakey.setFont(new   java.awt.Font("Dialog",   0,   20));
-           //JScrollPane sp = new JScrollPane();
-
            jsp = new JScrollPane(jtakey);
            jsp.setBounds(900,70,500,350);
            //jsp.setPreferredSize(new Dimension(100,100));
@@ -90,9 +90,18 @@ class Jframe2 extends JFrame implements ActionListener {
           //panel.add(jtakey);
 
 
-           JTextArea jtalock=new JTextArea(100,100);
-           jtalock.setBounds(900,480,500,350);
-           panel.add(jtalock);
+            jtalock=new JTextArea(100,100);
+          // jtalock.setBounds(900,480,500,350);
+           jtalock.setFont(new   java.awt.Font("Dialog",   0,   20));
+
+           sp= new JScrollPane(jtalock);
+           sp.setBounds(900,480,500,350);
+           panel.add(sp);
+
+           JTextField textfield = new JTextField();
+           textfield.setBounds(130,500,200,50);
+           panel.add(textfield);
+           //String value = textfield.getText().trim();
 
 
        }
@@ -132,7 +141,12 @@ class Jframe2 extends JFrame implements ActionListener {
         System.out.println("name02 = " + kb[1].getID());
         for(int x=0;x<kb.length;x++)
         {
-            jtakey.append("Key :"+(x+1)+" ID: "+kb[x].getID()+" type: "+kb[x].isType()+"\r\n");
+            jtakey.append("Key "+(x+1)+" [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
+        }
+
+        for(int x=0;x<lb.length;x++)
+        {
+            jtalock.append("Lock "+(x+1)+" [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
         }
 
     }
