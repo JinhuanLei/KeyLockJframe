@@ -28,7 +28,7 @@ public class dataoperate {
 //        System.out.println(locks);
 //        System.out.println(".............................................");
 //        System.out.println(combos);
-        JSONObject jsonObject = JSONObject.fromObject(keys);
+        //JSONObject jsonObject = JSONObject.fromObject(keys);
         keybean[] kb=new Gson().fromJson(keys,keybean[].class);
         System.out.println("name01 = " + kb[0].getID());
         System.out.println("name02 = " + kb[1].getID());
