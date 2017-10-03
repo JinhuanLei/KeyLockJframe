@@ -1,10 +1,14 @@
 package windows;
 
+import core.*;
+import function.dataoperate;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.HashSet;
+import function.dataoperate;
 class Jframe2 extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
@@ -36,10 +40,17 @@ class Jframe2 extends JFrame implements ActionListener {
            panel.add(InitialButton);
            InitialButton.addActionListener(this);
 
+           JButton RefreshButton = new JButton("Refresh Data");
+           RefreshButton.setPreferredSize(new Dimension(100,30));
+           RefreshButton.setFont(new   java.awt.Font("Dialog",   1,   20));
+           RefreshButton.setBounds(320, 90, 160, 50);
+           panel.add(RefreshButton);
+           RefreshButton.addActionListener(this);
+
            JButton ComboButton = new JButton("Add a combination");
            ComboButton.setPreferredSize(new Dimension(190,30));
            ComboButton.setFont(new   java.awt.Font("Dialog",   1,   20));
-           ComboButton.setBounds(130, 200, 120, 50);
+           ComboButton.setBounds(130, 195, 220, 50);
            panel.add(ComboButton);
            ComboButton.addActionListener(this);
 
@@ -56,9 +67,25 @@ class Jframe2 extends JFrame implements ActionListener {
            UpdateKeyButton.setBounds(350, 300, 180, 50);
            panel.add(UpdateKeyButton);
            UpdateKeyButton.addActionListener(this);
+
+           JTextArea jtakey=new JTextArea(100,100);
+           jtakey.setBounds(900,70,500,350);
+           panel.add(jtakey);
+
+           JTextArea jtalock=new JTextArea(100,100);
+           jtalock.setBounds(900,480,500,350);
+           panel.add(jtalock);
+
+
        }
 
     public void actionPerformed(ActionEvent e) {
+        String source = e.getActionCommand();
+        if(source=="Initial Data")
+        {
+            dataoperate.initialdata();
+        }
+
 
     }
 }
