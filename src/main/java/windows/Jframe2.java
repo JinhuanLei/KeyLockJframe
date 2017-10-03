@@ -1,5 +1,9 @@
 package windows;
 
+import bean.keybean;
+import bean.keylockbean;
+import bean.lockbean;
+import com.google.gson.Gson;
 import core.*;
 import function.dataoperate;
 
@@ -9,8 +13,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 import function.dataoperate;
+import function.dataoperate;
 class Jframe2 extends JFrame implements ActionListener {
-
+    HashSet<Key1> k1=null;
+    HashSet<Lock1> l1=null;
+    HashSet<KeyLock> kl1=null;
+    JTextArea jtakey;
+    JScrollPane jsp;
     public static void main(String[] args) {
         // TODO Auto-generated method stub
        Jframe2 test=new Jframe2();
@@ -68,9 +77,18 @@ class Jframe2 extends JFrame implements ActionListener {
            panel.add(UpdateKeyButton);
            UpdateKeyButton.addActionListener(this);
 
-           JTextArea jtakey=new JTextArea(100,100);
+            jtakey=new JTextArea(100,100);
            jtakey.setBounds(900,70,500,350);
-           panel.add(jtakey);
+           jtakey.setFont(new   java.awt.Font("Dialog",   0,   20));
+           //JScrollPane sp = new JScrollPane();
+
+           jsp = new JScrollPane(jtakey);
+           jsp.setBounds(900,70,500,350);
+           //jsp.setPreferredSize(new Dimension(100,100));
+          //jsp.setViewportView(jtakey);
+           panel.add(jsp);
+          //panel.add(jtakey);
+
 
            JTextArea jtalock=new JTextArea(100,100);
            jtalock.setBounds(900,480,500,350);
@@ -83,9 +101,39 @@ class Jframe2 extends JFrame implements ActionListener {
         String source = e.getActionCommand();
         if(source=="Initial Data")
         {
-            dataoperate.initialdata();
+            dataoperate dp=new dataoperate();
+            initialdata();
         }
 
+
+    }
+
+    public void initialdata()
+    {
+        Main m=new Main();
+        ConvertJson cj=new ConvertJson();
+        k1=m.getAllKeys();
+        l1=m.getAllLocks();
+        kl1=m.getAllCombos();
+
+        String keys= cj.set2json(m.getAllKeys());
+        String locks= cj.set2json(m.getAllLocks());
+        String combos= cj.set2json(m.getAllCombos());
+//        System.out.println(keys);
+//        System.out.println(".............................................");
+//        System.out.println(locks);
+//        System.out.println(".............................................");
+//        System.out.println(combos);
+        //JSONObject jsonObject = JSONObject.fromObject(keys);
+        keybean[] kb=new Gson().fromJson(keys,keybean[].class);
+        lockbean[] lb=new Gson().fromJson(locks,lockbean[].class);
+        keylockbean[] klb=new Gson().fromJson(combos,keylockbean[].class);
+        System.out.println("name01 = " + kb[0].getID());
+        System.out.println("name02 = " + kb[1].getID());
+        for(int x=0;x<kb.length;x++)
+        {
+            jtakey.append("Key :"+(x+1)+" ID: "+kb[x].getID()+" type: "+kb[x].isType()+"\r\n");
+        }
 
     }
 }
