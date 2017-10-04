@@ -17,7 +17,7 @@ public class StartJframe extends JFrame implements ActionListener {
 //        jbutton.addActionListener(this);
 //        jbutton.setBounds(10, 80, 800, 250);
        // this.add(jbutton);
-        this.setTitle("窗口1");
+        this.setTitle("Start Windows");
         this.setBounds(100, 100, 1500, 900);
 
         JPanel panel = new JPanel();
@@ -62,13 +62,13 @@ public class StartJframe extends JFrame implements ActionListener {
         String source = arg0.getActionCommand();
         if (source.equals("Start")) {
             setVisible(false);
-            new Jframe2();
+            new MainJframe();
         }
 
 //        if(arg0.getSource()==jbutton){
 //            //创建一个新窗口
 //
-//            new Jframe2();
+//            new MainJframe();
 //        }
 
     }

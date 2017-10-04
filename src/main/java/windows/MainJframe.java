@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 
-class Jframe2 extends JFrame implements ActionListener {
+class MainJframe extends JFrame implements ActionListener {
     HashSet<Key1> k1=null;
     HashSet<Lock1> l1=null;
     HashSet<KeyLock> kl1=null;
@@ -22,11 +22,13 @@ class Jframe2 extends JFrame implements ActionListener {
     JTextArea jtalock;
     JScrollPane sp ;   //lock
     JTextField searchtextfield;
+    JComboBox comboBox;
+    static Main m;
     public static void main(String[] args) {
         // TODO Auto-generated method stub
-       Jframe2 test=new Jframe2();
+       MainJframe test=new MainJframe();
     }
-    public Jframe2(){
+    public MainJframe(){
         this.setTitle("Main Interface");
         this.setBounds(100, 100, 1500, 900);
 
@@ -98,6 +100,12 @@ class Jframe2 extends JFrame implements ActionListener {
            sp.setBounds(900,480,500,350);
            panel.add(sp);
 
+            comboBox=new JComboBox();
+           comboBox.addItem("Search a key");
+           comboBox.addItem("Search a lock");
+           comboBox.setBounds(130,450,100,30);
+           panel.add(comboBox);
+
            searchtextfield = new JTextField();
            searchtextfield.setBounds(130,500,320,50);
            panel.add(searchtextfield);
@@ -115,36 +123,62 @@ class Jframe2 extends JFrame implements ActionListener {
         String source = e.getActionCommand();
         if(source=="Initial Data")
         {
-            dataoperate dp=new dataoperate();
-            initialdata();
+           initialdata();
         }
        else if(source=="Search")
         {
-            String value = searchtextfield.getText().trim();
-            int v=Integer.parseInt(value);
-            ConvertJson cj=new ConvertJson();
-
-            try {
-                String lock=cj.set2json(m.searchLocksOpenedByGivenKey(v));
-                lockbean[] lb=new Gson().fromJson(lock,lockbean[].class);
-                System.out.println("data01 = " + lb[0].getRoomNumber());
-                System.out.println("data02 = " + lb[0].getID());
-                String infer="";
-//                for(int x=0;x<lb.length;x++)
-//                {
-//                    infer.append("Key "+(x+1)+" [ ID: "+lb[x].getID()+" type: "+lb[x].isType()+"]"+"\r\n");
-//
-//                }
-                new KeyInferJframe();
-
-               // JOptionPane.showMessageDialog(this, "用户名或者密码错误.", "Search Value", JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
+           SearchButtonFunction();
+       }
+       else if(source=="Add a combination")
+        {
+            AddCombinationFunction();
         }
 
     }
-    Main m;
+
+    private void AddCombinationFunction() {
+
+
+    }
+
+    private void SearchButtonFunction() {
+        String value = searchtextfield.getText().trim();
+        int v=Integer.parseInt(value);
+        ConvertJson cj=new ConvertJson();
+
+
+        if(comboBox.getSelectedItem().toString()=="Search a key")
+        {
+            try {
+                Key1 keyinfer=m.searchKey(v);
+                String lock=cj.set2json(m.searchLocksOpenedByGivenKey(v));
+                lockbean[] lb=new Gson().fromJson(lock,lockbean[].class);
+                System.out.println("data01 = " + lb[0].getRoomNumber());
+                System.out.println("key01 = " + keyinfer.getID());
+                System.out.println("data02 = " + lb[0].getID());
+                new KeyInferJframe(keyinfer,lb);
+
+
+            } catch (Exception e1) {
+                 JOptionPane.showMessageDialog(this, "There is no such key.", "Wrong", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else{
+
+            try {
+                Lock1 lockinfer=m.searchLock(v);
+                String key=cj.set2json(m.searchKeysOpeningGivenLock(v));
+               keybean[] kb=new Gson().fromJson(key,keybean[].class);
+                new LockInferJframe(lockinfer,kb);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "There is no such lock.", "Wrong", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+    }
+
+
     public void initialdata()
     {
          m=new Main();
@@ -156,12 +190,6 @@ class Jframe2 extends JFrame implements ActionListener {
         String keys= cj.set2json(m.getAllKeys());
         String locks= cj.set2json(m.getAllLocks());
         String combos= cj.set2json(m.getAllCombos());
-//        System.out.println(keys);
-//        System.out.println(".............................................");
-//        System.out.println(locks);
-//        System.out.println(".............................................");
-//        System.out.println(combos);
-        //JSONObject jsonObject = JSONObject.fromObject(keys);
         keybean[] kb=new Gson().fromJson(keys,keybean[].class);
         lockbean[] lb=new Gson().fromJson(locks,lockbean[].class);
         keylockbean[] klb=new Gson().fromJson(combos,keylockbean[].class);
