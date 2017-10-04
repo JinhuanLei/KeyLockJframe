@@ -137,14 +137,40 @@ class MainJframe extends JFrame implements ActionListener {
         {
               AddNewKeyFunction();
         }
-        else if(source=="Add a new key")
-        {
-
-        }
         else if(source=="Update a key")
         {
 
         }
+        else if(source=="Refresh Data")
+        {
+            RefreshDataFunction();
+        }
+
+    }
+
+    private void RefreshDataFunction() {
+        ConvertJson cj=new ConvertJson();
+        k1=m.getAllKeys();
+        l1=m.getAllLocks();
+        kl1=m.getAllCombos();
+
+        String keys= cj.set2json(m.getAllKeys());
+        String locks= cj.set2json(m.getAllLocks());
+        String combos= cj.set2json(m.getAllCombos());
+        keybean[] kb=new Gson().fromJson(keys,keybean[].class);
+        lockbean[] lb=new Gson().fromJson(locks,lockbean[].class);
+        keylockbean[] klb=new Gson().fromJson(combos,keylockbean[].class);
+        jtakey.setText("");
+        for(int x=0;x<kb.length;x++)
+        {
+            jtakey.append("Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
+        }
+
+        for(int x=0;x<lb.length;x++)
+        {
+            jtalock.append("Lock [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
+        }
+
 
     }
 
@@ -214,12 +240,12 @@ class MainJframe extends JFrame implements ActionListener {
         System.out.println("name02 = " + kb[1].getID());
         for(int x=0;x<kb.length;x++)
         {
-            jtakey.append("Key "+(x+1)+" [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
+            jtakey.append("Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
         }
 
         for(int x=0;x<lb.length;x++)
         {
-            jtalock.append("Lock "+(x+1)+" [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
+            jtalock.append("Lock [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
         }
 
     }

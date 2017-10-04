@@ -46,7 +46,7 @@ public class AddKeyJframe extends JFrame implements ActionListener {
 
         radioButton1=new JRadioButton("Swipe Card",true);
         radioButton2=new JRadioButton("Physical key");
-        selected=  radioButton1.isSelected();
+
         System.out.println("..........................."+selected);
         radioButton1.setBounds(150,105,120,30);
         radioButton2.setBounds(270,105,120,30);
@@ -69,7 +69,16 @@ public class AddKeyJframe extends JFrame implements ActionListener {
         String source = e.getActionCommand();
         if(source=="Submit")
         {
+            selected=  radioButton2.isSelected();
             System.out.println("..........................."+selected);
+            String sid=jtf.getText().trim();
+            int id=Integer.parseInt(sid);
+            try {
+                MainJframe.m.addNewKey(id,selected);
+
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(this, "There is no such lock.", "Wrong", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }
