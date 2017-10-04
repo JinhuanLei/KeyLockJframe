@@ -74,7 +74,7 @@ class MainJframe extends JFrame implements ActionListener {
            panel.add(KeyButton);
            KeyButton.addActionListener(this);
 
-           JButton UpdateKeyButton = new JButton("Update a  key");
+           JButton UpdateKeyButton = new JButton("Update a key");
            UpdateKeyButton.setPreferredSize(new Dimension(190,30));
            UpdateKeyButton.setFont(new   java.awt.Font("Dialog",   1,   20));
            UpdateKeyButton.setBounds(350, 300, 180, 50);
@@ -133,12 +133,29 @@ class MainJframe extends JFrame implements ActionListener {
         {
             AddCombinationFunction();
         }
+        else if(source=="Add a new key")
+        {
+              AddNewKeyFunction();
+        }
+        else if(source=="Add a new key")
+        {
+
+        }
+        else if(source=="Update a key")
+        {
+
+        }
+
+    }
+
+    private void AddNewKeyFunction() {
+        new AddKeyJframe();
 
     }
 
     private void AddCombinationFunction() {
 
-
+        new AddComboJframe();
     }
 
     private void SearchButtonFunction() {
