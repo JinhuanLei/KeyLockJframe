@@ -4,17 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-public class mainpage extends JFrame implements ActionListener {
+public class StartJframe extends JFrame implements ActionListener {
 
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
-        mainpage test=new mainpage();
+        StartJframe test=new StartJframe();
     }
-    public mainpage(){
+    public StartJframe(){
 //        jbutton=new JButton("点击打开窗口2");
 //        jbutton.addActionListener(this);
 //        jbutton.setBounds(10, 80, 800, 250);
@@ -63,6 +61,7 @@ public class mainpage extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent arg0) {
         String source = arg0.getActionCommand();
         if (source.equals("Start")) {
+            setVisible(false);
             new Jframe2();
         }
 

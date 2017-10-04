@@ -12,8 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
-import function.dataoperate;
-import function.dataoperate;
+
 class Jframe2 extends JFrame implements ActionListener {
     HashSet<Key1> k1=null;
     HashSet<Lock1> l1=null;
@@ -22,12 +21,13 @@ class Jframe2 extends JFrame implements ActionListener {
     JScrollPane jsp;       //key
     JTextArea jtalock;
     JScrollPane sp ;   //lock
+    JTextField searchtextfield;
     public static void main(String[] args) {
         // TODO Auto-generated method stub
        Jframe2 test=new Jframe2();
     }
     public Jframe2(){
-        this.setTitle("窗口2");
+        this.setTitle("Main Interface");
         this.setBounds(100, 100, 1500, 900);
 
         JPanel panel2 = new JPanel();
@@ -98,12 +98,17 @@ class Jframe2 extends JFrame implements ActionListener {
            sp.setBounds(900,480,500,350);
            panel.add(sp);
 
-           JTextField textfield = new JTextField();
-           textfield.setBounds(130,500,200,50);
-           panel.add(textfield);
+           searchtextfield = new JTextField();
+           searchtextfield.setBounds(130,500,320,50);
+           panel.add(searchtextfield);
            //String value = textfield.getText().trim();
 
-
+           JButton SearchButton = new JButton("Search");
+           SearchButton.setPreferredSize(new Dimension(100,30));
+           SearchButton.setFont(new   java.awt.Font("Dialog",   1,   20));
+           SearchButton.setBounds(470, 500, 100, 50);
+           panel.add(SearchButton);
+           SearchButton.addActionListener(this);
        }
 
     public void actionPerformed(ActionEvent e) {
@@ -113,13 +118,36 @@ class Jframe2 extends JFrame implements ActionListener {
             dataoperate dp=new dataoperate();
             initialdata();
         }
+       else if(source=="Search")
+        {
+            String value = searchtextfield.getText().trim();
+            int v=Integer.parseInt(value);
+            ConvertJson cj=new ConvertJson();
 
+            try {
+                String lock=cj.set2json(m.searchLocksOpenedByGivenKey(v));
+                lockbean[] lb=new Gson().fromJson(lock,lockbean[].class);
+                System.out.println("data01 = " + lb[0].getRoomNumber());
+                System.out.println("data02 = " + lb[0].getID());
+                String infer="";
+//                for(int x=0;x<lb.length;x++)
+//                {
+//                    infer.append("Key "+(x+1)+" [ ID: "+lb[x].getID()+" type: "+lb[x].isType()+"]"+"\r\n");
+//
+//                }
+                new KeyInferJframe();
+
+               // JOptionPane.showMessageDialog(this, "用户名或者密码错误.", "Search Value", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
 
     }
-
+    Main m;
     public void initialdata()
     {
-        Main m=new Main();
+         m=new Main();
         ConvertJson cj=new ConvertJson();
         k1=m.getAllKeys();
         l1=m.getAllLocks();
