@@ -78,7 +78,7 @@ public class DeleteKeyJframe extends JFrame implements ActionListener {
                 MainJframe.m.deleteKey(keyid,lockid);
                 status=true;
             } catch (Exception e1) {
-               e1.printStackTrace();
+               //e1.printStackTrace();
                 JOptionPane.showMessageDialog(this, e1, "Wrong", JOptionPane.ERROR_MESSAGE);
             }
 
