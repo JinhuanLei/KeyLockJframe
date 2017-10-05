@@ -87,6 +87,7 @@ public class AddComboJframe extends JFrame implements ActionListener {
         }
         else {
             dispose();
+
         }
 
 

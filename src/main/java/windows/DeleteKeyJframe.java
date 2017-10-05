@@ -14,7 +14,7 @@ public class DeleteKeyJframe extends JFrame implements ActionListener {
     public DeleteKeyJframe(int keyid2)
     {
         keyid1=keyid2;
-        this.setTitle("Update");
+        this.setTitle("Delete");
         this.setBounds(720, 360, 550, 360);
         JPanel panel2 = new JPanel();
         this.add(panel2);
@@ -53,13 +53,21 @@ public class DeleteKeyJframe extends JFrame implements ActionListener {
         JButton submitButton=new JButton("Submit");
         submitButton.setPreferredSize(new Dimension(100,30));
         submitButton.setFont(new   java.awt.Font("Dialog",   1,   20));
-        submitButton.setBounds(200, 200, 100, 50);
+        submitButton.setBounds(100, 200, 100, 50);
         panel.add(submitButton);
         submitButton.addActionListener(this);
+
+        JButton cancelButton=new JButton("Cancel");
+        cancelButton.setPreferredSize(new Dimension(100,30));
+        cancelButton.setFont(new   java.awt.Font("Dialog",   1,   20));
+        cancelButton.setBounds(300, 200, 100, 50);
+        panel.add(cancelButton);
+        cancelButton.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
         String source = e.getActionCommand();
+        Boolean status=false;
         if(source=="Submit")
         {
             String skeyid=jtf.getText().trim();
@@ -68,10 +76,21 @@ public class DeleteKeyJframe extends JFrame implements ActionListener {
             int lockid=Integer.parseInt(slockid);
             try {
                 MainJframe.m.deleteKey(keyid,lockid);
+                status=true;
             } catch (Exception e1) {
-                JOptionPane.showMessageDialog(this, "Invaid Input.", "Wrong", JOptionPane.ERROR_MESSAGE);
+               e1.printStackTrace();
+                JOptionPane.showMessageDialog(this, e1, "Wrong", JOptionPane.ERROR_MESSAGE);
             }
-        dispose();
+
+        }else{
+            dispose();
         }
+
+        if(status==true)
+        {
+            dispose();
+        }
+
+
     }
 }
