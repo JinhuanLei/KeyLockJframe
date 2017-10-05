@@ -39,6 +39,7 @@ class MainJframe extends JFrame implements ActionListener {
          * 调用用户定义的方法并添加组件到面板
          */
         placeComponents(panel2);
+        initialdata();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          }
@@ -46,17 +47,18 @@ class MainJframe extends JFrame implements ActionListener {
        public void placeComponents(JPanel panel)
        {
            panel.setLayout(null);
-           JButton InitialButton = new JButton("Initial Data");
-           InitialButton.setPreferredSize(new Dimension(100,30));
-           InitialButton.setFont(new   java.awt.Font("Dialog",   1,   20));
-           InitialButton.setBounds(130, 90, 160, 50);
-           panel.add(InitialButton);
-           InitialButton.addActionListener(this);
+//           JButton InitialButton = new JButton("Initial Data");
+//           InitialButton.setPreferredSize(new Dimension(100,30));
+//           InitialButton.setFont(new   java.awt.Font("Dialog",   1,   20));
+//           InitialButton.setBounds(130, 90, 160, 50);
+//           panel.add(InitialButton);
+//           InitialButton.addActionListener(this);
 
            JButton RefreshButton = new JButton("Refresh Data");
            RefreshButton.setPreferredSize(new Dimension(100,30));
            RefreshButton.setFont(new   java.awt.Font("Dialog",   1,   20));
-           RefreshButton.setBounds(320, 90, 160, 50);
+           //RefreshButton.setBounds(320, 90, 160, 50);
+           RefreshButton.setBounds(130, 90, 160, 50);
            panel.add(RefreshButton);
            RefreshButton.addActionListener(this);
 
@@ -103,7 +105,7 @@ class MainJframe extends JFrame implements ActionListener {
             comboBox=new JComboBox();
            comboBox.addItem("Search a key");
            comboBox.addItem("Search a lock");
-           comboBox.setBounds(130,450,100,30);
+           comboBox.setBounds(130,450,120,30);
            panel.add(comboBox);
 
            searchtextfield = new JTextField();
@@ -117,6 +119,7 @@ class MainJframe extends JFrame implements ActionListener {
            SearchButton.setBounds(470, 500, 100, 50);
            panel.add(SearchButton);
            SearchButton.addActionListener(this);
+
        }
 
     public void actionPerformed(ActionEvent e) {
@@ -139,13 +142,17 @@ class MainJframe extends JFrame implements ActionListener {
         }
         else if(source=="Update a key")
         {
-
+               UpdateKeyFunction();
         }
         else if(source=="Refresh Data")
         {
             RefreshDataFunction();
         }
 
+    }
+
+    public static void UpdateKeyFunction() {
+        new UpdateKeyJframe();
     }
 
     private void RefreshDataFunction() {
@@ -161,6 +168,7 @@ class MainJframe extends JFrame implements ActionListener {
         lockbean[] lb=new Gson().fromJson(locks,lockbean[].class);
         keylockbean[] klb=new Gson().fromJson(combos,keylockbean[].class);
         jtakey.setText("");
+        jtalock.setText("");
         for(int x=0;x<kb.length;x++)
         {
             jtakey.append("Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");

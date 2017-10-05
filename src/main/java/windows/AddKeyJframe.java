@@ -77,8 +77,12 @@ public class AddKeyJframe extends JFrame implements ActionListener {
                 MainJframe.m.addNewKey(id,selected);
 
             } catch (Exception e1) {
+//                String str=e1.getCause().getMessage();
+//                String str2=e1.getMessage();
+//                System.out.println("str"+str+"str2"+str2);
                 JOptionPane.showMessageDialog(this, "There is no such lock.", "Wrong", JOptionPane.ERROR_MESSAGE);
             }
         }
+        dispose();
     }
 }

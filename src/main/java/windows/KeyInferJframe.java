@@ -4,6 +4,7 @@ import bean.lockbean;
 import core.Key1;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,6 +16,7 @@ public class KeyInferJframe extends JFrame implements ActionListener {
 //    }
    Key1  ki;
    lockbean[] lb;
+    JTextArea jta;
     public KeyInferJframe(Key1 keyinfer, lockbean[] lockbean){
         this.setTitle("Search Information");
         this.setBounds(720, 360, 550, 360);
@@ -35,34 +37,63 @@ public class KeyInferJframe extends JFrame implements ActionListener {
         nameLable.setBounds(30,20,80,30);
         nameLable.setFont(new   java.awt.Font("Dialog",   1,   20));
         panel.add(nameLable);
-        JTextArea jta=new JTextArea();
+
+        jta=new JTextArea();
         jta.setFont(new   java.awt.Font("Dialog",   0,   16));
         jta.setBounds(30,50,450,220);
         panel.add(jta);
-        if(lb.length>1)
+         showdata();
+
+        JButton updateButton = new JButton("Update the key");
+        updateButton.setPreferredSize(new Dimension(180,30));
+        updateButton.setFont(new   java.awt.Font("Dialog",   1,   20));
+        updateButton.setBounds(30, 270, 180, 50);
+        panel.add(updateButton);
+        if(ki.getType()==true)
         {
-            jta.append("Key Type: Master key"+"\r\n");
+            updateButton.addActionListener(this);
         }
-        else {
-            if (ki.getType()==true)
-            {
-                jta.append("Key Type: Physical key"+"\r\n");
-            }
-           else{
-                jta.append("Key Type: Swipe Card"+"\r\n");
-            }
+
+        JButton deleteButton = new JButton("Delete the key");
+        deleteButton.setPreferredSize(new Dimension(180,30));
+        deleteButton.setFont(new   java.awt.Font("Dialog",   1,   20));
+        deleteButton.setBounds(280, 270, 180, 50);
+        panel.add(deleteButton);
+        deleteButton.addActionListener(this);
 
 
-        }
-        for(int x=0;x<lb.length;x++)
+    }
+public void showdata()
+{
+    if(lb.length>1)
+    {
+        jta.append("Key Type: Master key"+"\r\n");
+    }
+    else {
+        if (ki.getType()==true)
         {
-            jta.append("Match Lock "+(x+1)+" [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
+            jta.append("Key Type: Physical key"+"\r\n");
+        }
+        else{
+            jta.append("Key Type: Swipe Card"+"\r\n");
         }
 
 
     }
-
+    for(int x=0;x<lb.length;x++)
+    {
+        jta.append("Match Lock "+(x+1)+" [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
+    }
+}
     public void actionPerformed(ActionEvent e) {
-
+        String source = e.getActionCommand();
+        if(source=="Update the key")
+        {
+            new UpdateKeyJframe(ki.getID());
+        }
+        else if(source=="Delete the key")
+        {
+               new DeleteKeyJframe(ki.getID());
+        }
     }
 }
