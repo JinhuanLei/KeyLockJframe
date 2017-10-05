@@ -59,14 +59,21 @@ public class AddKeyJframe extends JFrame implements ActionListener {
         JButton submitButton=new JButton("Submit");
         submitButton.setPreferredSize(new Dimension(100,30));
         submitButton.setFont(new   java.awt.Font("Dialog",   1,   20));
-        submitButton.setBounds(200, 200, 100, 50);
+        submitButton.setBounds(100, 200, 100, 50);
         panel.add(submitButton);
         submitButton.addActionListener(this);
 
+        JButton cancelButton=new JButton("Cancel");
+        cancelButton.setPreferredSize(new Dimension(100,30));
+        cancelButton.setFont(new   java.awt.Font("Dialog",   1,   20));
+        cancelButton.setBounds(300, 200, 100, 50);
+        panel.add(cancelButton);
+        cancelButton.addActionListener(this);
 
     }
     public void actionPerformed(ActionEvent e) {
         String source = e.getActionCommand();
+        Boolean status=false;
         if(source=="Submit")
         {
             selected=  radioButton2.isSelected();
@@ -75,6 +82,7 @@ public class AddKeyJframe extends JFrame implements ActionListener {
             int id=Integer.parseInt(sid);
             try {
                 MainJframe.m.addNewKey(id,selected);
+                status=true;
 
             } catch (Exception e1) {
 //                String str=e1.getCause().getMessage();
@@ -83,6 +91,14 @@ public class AddKeyJframe extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "There is no such lock.", "Wrong", JOptionPane.ERROR_MESSAGE);
             }
         }
-        dispose();
+        else {
+            dispose();
+        }
+
+        if(status==true)
+        {
+            dispose();
+        }
+
     }
 }

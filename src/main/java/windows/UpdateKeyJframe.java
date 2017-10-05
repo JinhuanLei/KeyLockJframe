@@ -67,13 +67,21 @@ public class UpdateKeyJframe extends JFrame implements ActionListener {
         JButton submitButton=new JButton("Submit");
         submitButton.setPreferredSize(new Dimension(100,30));
         submitButton.setFont(new   java.awt.Font("Dialog",   1,   20));
-        submitButton.setBounds(200, 200, 100, 50);
+        submitButton.setBounds(100, 200, 100, 50);
         panel.add(submitButton);
         submitButton.addActionListener(this);
+
+        JButton cancelButton=new JButton("Cancel");
+        cancelButton.setPreferredSize(new Dimension(100,30));
+        cancelButton.setFont(new   java.awt.Font("Dialog",   1,   20));
+        cancelButton.setBounds(300, 200, 100, 50);
+        panel.add(cancelButton);
+        cancelButton.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
         String source = e.getActionCommand();
+        Boolean status=false;
         if(source=="Submit")
         {
             String skeyid=jtf.getText().trim();
@@ -83,11 +91,21 @@ public class UpdateKeyJframe extends JFrame implements ActionListener {
 
             try {
                 MainJframe.m.addKey(keyid,lockid);
+                status=true;
             } catch (Exception e1) {
                 JOptionPane.showMessageDialog(this, "Invaid Input.", "Wrong", JOptionPane.ERROR_MESSAGE);
             }
 
         }
-        dispose();
+        else
+        {
+            dispose();
+        }
+
+        if(status==true)
+        {
+            dispose();
+        }
+
     }
 }
