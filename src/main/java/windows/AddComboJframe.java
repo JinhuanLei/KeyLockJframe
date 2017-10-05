@@ -81,7 +81,7 @@ public class AddComboJframe extends JFrame implements ActionListener {
             try {
                 MainJframe.m.addNewLock(id);
                 status=true;
-                System.out.println("1");
+
                } catch (Exception e1) {
                 JOptionPane.showMessageDialog(this, "There is no such room.", "Wrong", JOptionPane.ERROR_MESSAGE);
             }
