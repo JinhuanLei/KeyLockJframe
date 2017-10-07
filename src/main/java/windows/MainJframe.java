@@ -169,6 +169,7 @@ class MainJframe extends JFrame implements ActionListener {
         keylockbean[] klb=new Gson().fromJson(combos,keylockbean[].class);
         jtakey.setText("");
         jtalock.setText("");
+        System.out.println("keys infer"+keys);
         for(int x=0;x<kb.length;x++)
         {
             jtakey.append("Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
@@ -200,18 +201,24 @@ class MainJframe extends JFrame implements ActionListener {
 
         if(comboBox.getSelectedItem().toString()=="Search a key")
         {
+            lockbean[] lb;
             try {
                 Key1 keyinfer=m.searchKey(v);
-                String lock=cj.set2json(m.searchLocksOpenedByGivenKey(v));
-                lockbean[] lb=new Gson().fromJson(lock,lockbean[].class);
-                System.out.println("data01 = " + lb[0].getRoomNumber());
-                System.out.println("key01 = " + keyinfer.getID());
-                System.out.println("data02 = " + lb[0].getID());
+                if(m.searchLocksOpenedByGivenKey(v).size()!=0);
+                {
+                    String lock=cj.set2json(m.searchLocksOpenedByGivenKey(v));
+                     lb=new Gson().fromJson(lock,lockbean[].class);
+                }
+
+                //System.out.println("data01 = " + lb[0].getRoomNumber());
+                System.out.println("lb infer " + lb.length);
+               // System.out.println("data02 = " + lb[0].getID());
                 new KeyInferJframe(keyinfer,lb);
 
 
             } catch (Exception e1) {
-                 JOptionPane.showMessageDialog(this, "There is no such key.", "Wrong", JOptionPane.ERROR_MESSAGE);
+                 JOptionPane.showMessageDialog(this, e1, "Wrong", JOptionPane.ERROR_MESSAGE);
+            //"There is no such key."
             }
         }
         else{
@@ -244,8 +251,8 @@ class MainJframe extends JFrame implements ActionListener {
         keybean[] kb=new Gson().fromJson(keys,keybean[].class);
         lockbean[] lb=new Gson().fromJson(locks,lockbean[].class);
         keylockbean[] klb=new Gson().fromJson(combos,keylockbean[].class);
-        System.out.println("name01 = " + kb[0].getID());
-        System.out.println("name02 = " + kb[1].getID());
+//        System.out.println("name01 = " + kb[0].getID());
+//        System.out.println("name02 = " + kb[1].getID());
         for(int x=0;x<kb.length;x++)
         {
             jtakey.append("Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");

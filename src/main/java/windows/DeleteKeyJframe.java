@@ -1,9 +1,15 @@
 package windows;
 
+import core.Key1;
+import core.Lock1;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+
+import static windows.MainJframe.m;
 
 public class DeleteKeyJframe extends JFrame implements ActionListener {
 
@@ -75,7 +81,11 @@ public class DeleteKeyJframe extends JFrame implements ActionListener {
             int keyid=Integer.parseInt(skeyid);
             int lockid=Integer.parseInt(slockid);
             try {
-                MainJframe.m.deleteKey(keyid,lockid);
+                m.deleteKey(keyid,lockid);
+                //Key1 k=m.searchKey(keyid);
+                //System.out.println("删除后搜索keyid"+k.getID());
+               //HashSet<Lock1> hs= m.searchLocksOpenedByGivenKey(keyid);
+               //System.out.println("size"+ hs.size());
                 status=true;
             } catch (Exception e1) {
                //e1.printStackTrace();

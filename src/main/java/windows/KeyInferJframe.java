@@ -80,6 +80,10 @@ public void showdata()
 
 
     }
+    if(lb.length==0)
+    {
+        jta.append("This key can not find any match lock");
+    }
     for(int x=0;x<lb.length;x++)
     {
         jta.append("Match Lock "+(x+1)+" [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
