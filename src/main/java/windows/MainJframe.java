@@ -6,13 +6,6 @@ import bean.lockbean;
 import com.google.gson.Gson;
 import core.*;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.painter.border.StandardBorderPainter;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
-import org.pushingpixels.substance.api.skin.SubstanceChallengerDeepLookAndFeel;
-import org.pushingpixels.substance.api.skin.SubstanceSaharaLookAndFeel;
-import org.pushingpixels.substance.api.skin.SubstanceTwilightLookAndFeel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -215,31 +208,30 @@ class MainJframe extends JFrame implements ActionListener {
         String value = searchtextfield.getText().trim();
         int v=Integer.parseInt(value);
         ConvertJson cj=new ConvertJson();
-
-
         if(comboBox.getSelectedItem().toString()=="Search a key")
         {
             lockbean[] lb;
             try {
                 Key1 keyinfer=m.searchKey(v);
+
                 if(m.searchLocksOpenedByGivenKey(v).size()!=0)
                 {
                     String lock=cj.set2json(m.searchLocksOpenedByGivenKey(v));
-                     lb=new Gson().fromJson(lock,lockbean[].class);
+                    lb=new Gson().fromJson(lock,lockbean[].class);
                 }
-              else{
+                else{
                     throw new Exception();
                 }
                 //System.out.println("data01 = " + lb[0].getRoomNumber());
-                System.out.println("lb infer " + lb.length);
-               // System.out.println("data02 = " + lb[0].getID());
+                // System.out.println("lb infer " +lb.length);
+                // System.out.println("data02 = " + lb[0].getID());
 
                 new KeyInferJframe(keyinfer,lb);
 
 
             } catch (Exception e1) {
-                 JOptionPane.showMessageDialog(this, "There is no such key!", "Wrong", JOptionPane.ERROR_MESSAGE);
-            //"There is no such key."
+                JOptionPane.showMessageDialog(this,"There is no such key.", "Wrong", JOptionPane.ERROR_MESSAGE);
+                //"There is no such key."
             }
         }
         else{
@@ -247,7 +239,7 @@ class MainJframe extends JFrame implements ActionListener {
             try {
                 Lock1 lockinfer=m.searchLock(v);
                 String key=cj.set2json(m.searchKeysOpeningGivenLock(v));
-               keybean[] kb=new Gson().fromJson(key,keybean[].class);
+                keybean[] kb=new Gson().fromJson(key,keybean[].class);
                 new LockInferJframe(lockinfer,kb);
 
             } catch (Exception e) {
@@ -256,6 +248,7 @@ class MainJframe extends JFrame implements ActionListener {
 
         }
     }
+
 
 
     public void initialdata()
