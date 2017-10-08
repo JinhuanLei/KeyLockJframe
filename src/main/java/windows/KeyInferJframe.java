@@ -25,7 +25,7 @@ public class KeyInferJframe extends JFrame implements ActionListener {
     JTextArea jta;
     public KeyInferJframe(Key1 keyinfer, lockbean[] lockbean){
         this.setTitle("Search Information");
-        this.setBounds(680, 360, 550, 360);
+        this.setBounds(640, 360, 550, 360);
         JPanel panel2 = new JPanel();
        this.add(panel2);
         ki=keyinfer;
@@ -55,10 +55,8 @@ public class KeyInferJframe extends JFrame implements ActionListener {
         updateButton.setFont(new   java.awt.Font("Dialog",   1,   20));
         updateButton.setBounds(20, 270, 180, 50);
         panel.add(updateButton);
-        if(ki.getType()==true)
-        {
-            updateButton.addActionListener(this);
-        }
+        updateButton.addActionListener(this);
+
 
         JButton deleteButton = new JButton("Delete the key");
         deleteButton.setPreferredSize(new Dimension(180,30));
@@ -107,7 +105,15 @@ public void showdata()
         String source = e.getActionCommand();
         if(source=="Update the key")
         {
-            new UpdateKeyJframe(ki.getID());
+            if(ki.getType()==true)
+            {
+                new UpdateKeyJframe(ki.getID());
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "This card is a swipe card.", "Wrong", JOptionPane.ERROR_MESSAGE);
+
+            }
         }
         else if(source=="Delete the key")
         {

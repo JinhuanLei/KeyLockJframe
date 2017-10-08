@@ -37,7 +37,7 @@ public class Main {
      * @param room the room number in which the lock is placed.
      * @throws Exception when the room is not found.
      */
-    public void addNewLock (int room) throws Exception { 
+    public void addNewLock (int room) throws Exception {   //add a combination
         if (room < 101 || room > 300)
                 throw new Exception (" Main::addNewLock: Invalid room number");
 

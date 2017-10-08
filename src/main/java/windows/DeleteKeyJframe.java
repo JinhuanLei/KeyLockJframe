@@ -21,7 +21,7 @@ public class DeleteKeyJframe extends JFrame implements ActionListener {
     {
         keyid1=keyid2;
         this.setTitle("Delete");
-        this.setBounds(680, 360, 550, 360);
+        this.setBounds(640, 360, 550, 360);
         JPanel panel2 = new JPanel();
         this.add(panel2);
         placeComponents(panel2);

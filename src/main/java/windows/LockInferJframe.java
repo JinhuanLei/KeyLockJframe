@@ -16,7 +16,7 @@ public class LockInferJframe extends JFrame implements ActionListener {
     public LockInferJframe(Lock1 lockinfer, keybean[] keybean)
     {
         this.setTitle("Search Information");
-        this.setBounds(680, 360, 550, 360);
+        this.setBounds(640, 360, 550, 360);
         JPanel panel2 = new JPanel();
         this.add(panel2);
         li=lockinfer;

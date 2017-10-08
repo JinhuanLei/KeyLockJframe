@@ -8,10 +8,12 @@ import core.*;
 
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
+import java.util.Locale;
 
 class MainJframe extends JFrame implements ActionListener {
     HashSet<Key1> k1=null;
@@ -25,7 +27,10 @@ class MainJframe extends JFrame implements ActionListener {
     JComboBox comboBox;
     static Main m;
     public static void main(String[] args) {
-
+        //UIManager.put("OptionPane.buttonFont", new FontUIResource(new   java.awt.Font("Dialog",   0,   12)));
+// 设置文本显示效果
+        UIManager.put("OptionPane.messageFont", new FontUIResource(new   java.awt.Font("Dialog",   0,   14)));
+        Locale.setDefault(Locale.ENGLISH);
         MainJframe test=new MainJframe();
 
     }

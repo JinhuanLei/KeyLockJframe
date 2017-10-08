@@ -1,15 +1,19 @@
 package windows;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
 
 public class StartJframe extends JFrame implements ActionListener {
 
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
+        UIManager.put("OptionPane.messageFont", new FontUIResource(new   java.awt.Font("Dialog",   0,   14)));
+        Locale.setDefault(Locale.ENGLISH);
         StartJframe test=new StartJframe();
     }
     public StartJframe(){
