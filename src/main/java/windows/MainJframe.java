@@ -5,7 +5,14 @@ import bean.keylockbean;
 import bean.lockbean;
 import com.google.gson.Gson;
 import core.*;
-import function.dataoperate;
+
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.painter.border.StandardBorderPainter;
+import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceChallengerDeepLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceSaharaLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceTwilightLookAndFeel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,8 +32,9 @@ class MainJframe extends JFrame implements ActionListener {
     JComboBox comboBox;
     static Main m;
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
-       MainJframe test=new MainJframe();
+
+        MainJframe test=new MainJframe();
+
     }
     public MainJframe(){
         this.setTitle("Main Interface");
@@ -76,12 +84,12 @@ class MainJframe extends JFrame implements ActionListener {
            panel.add(KeyButton);
            KeyButton.addActionListener(this);
 
-           JButton UpdateKeyButton = new JButton("Update a key");
-           UpdateKeyButton.setPreferredSize(new Dimension(190,30));
-           UpdateKeyButton.setFont(new   java.awt.Font("Dialog",   1,   20));
-           UpdateKeyButton.setBounds(350, 300, 180, 50);
-           panel.add(UpdateKeyButton);
-           UpdateKeyButton.addActionListener(this);
+//           JButton UpdateKeyButton = new JButton("Update a key");
+//           UpdateKeyButton.setPreferredSize(new Dimension(190,30));
+//           UpdateKeyButton.setFont(new   java.awt.Font("Dialog",   1,   20));
+//           UpdateKeyButton.setBounds(350, 300, 180, 50);
+//           panel.add(UpdateKeyButton);
+//           UpdateKeyButton.addActionListener(this);
 
             jtakey=new JTextArea(100,100);
            //jtakey.setBounds(900,70,500,350);
@@ -170,8 +178,18 @@ class MainJframe extends JFrame implements ActionListener {
         jtakey.setText("");
         jtalock.setText("");
         System.out.println("keys infer"+keys);
+
         for(int x=0;x<kb.length;x++)
         {
+            int id=Integer.parseInt(kb[x].getID());
+            try {
+                if(m.searchLocksOpenedByGivenKey(id).size()==0)
+                {
+                   continue;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             jtakey.append("Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
         }
 
@@ -204,20 +222,23 @@ class MainJframe extends JFrame implements ActionListener {
             lockbean[] lb;
             try {
                 Key1 keyinfer=m.searchKey(v);
-                if(m.searchLocksOpenedByGivenKey(v).size()!=0);
+                if(m.searchLocksOpenedByGivenKey(v).size()!=0)
                 {
                     String lock=cj.set2json(m.searchLocksOpenedByGivenKey(v));
                      lb=new Gson().fromJson(lock,lockbean[].class);
                 }
-
+              else{
+                    throw new Exception();
+                }
                 //System.out.println("data01 = " + lb[0].getRoomNumber());
                 System.out.println("lb infer " + lb.length);
                // System.out.println("data02 = " + lb[0].getID());
+
                 new KeyInferJframe(keyinfer,lb);
 
 
             } catch (Exception e1) {
-                 JOptionPane.showMessageDialog(this, e1, "Wrong", JOptionPane.ERROR_MESSAGE);
+                 JOptionPane.showMessageDialog(this, "There is no such key!", "Wrong", JOptionPane.ERROR_MESSAGE);
             //"There is no such key."
             }
         }

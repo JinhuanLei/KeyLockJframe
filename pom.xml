@@ -22,5 +22,15 @@
         <artifactId>gson</artifactId>
         <version>2.8.0</version>
     </dependency>
+        <!-- https://mvnrepository.com/artifact/org.java.net.substance/substance -->
+        <!-- https://mvnrepository.com/artifact/org.java.net.substance/substance -->
+        <dependency>
+            <groupId>org.java.net.substance</groupId>
+            <artifactId>substance</artifactId>
+            <version>6.0</version>
+        </dependency>
+
+
+
     </dependencies>
 </project>

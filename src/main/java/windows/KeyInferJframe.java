@@ -19,7 +19,7 @@ public class KeyInferJframe extends JFrame implements ActionListener {
     JTextArea jta;
     public KeyInferJframe(Key1 keyinfer, lockbean[] lockbean){
         this.setTitle("Search Information");
-        this.setBounds(720, 360, 550, 360);
+        this.setBounds(680, 360, 550, 360);
         JPanel panel2 = new JPanel();
        this.add(panel2);
         ki=keyinfer;

@@ -17,7 +17,7 @@ public class UpdateKeyJframe extends JFrame implements ActionListener {
     public UpdateKeyJframe()
     {
         this.setTitle("Update");
-        this.setBounds(720, 360, 550, 360);
+        this.setBounds(680, 360, 550, 360);
         JPanel panel2 = new JPanel();
         this.add(panel2);
         placeComponents(panel2);
