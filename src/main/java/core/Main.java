@@ -21,7 +21,19 @@ public class Main {
     private HashSet<KeyLock> combos;
     private int lockCounter = 1001; // all lock IDs >= 1001
     private int keyCounter = 1; // all key IDs are between 1 and 1000.
-    
+
+    public int getLockCounter() {
+        return lockCounter;
+    }
+
+
+
+    public int getKeyCounter() {
+        return keyCounter;
+    }
+
+
+
     public Main () {
         keys = new HashSet<Key1>();
         locks = new HashSet<Lock1>();

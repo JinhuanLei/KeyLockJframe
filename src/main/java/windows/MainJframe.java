@@ -26,6 +26,8 @@ class MainJframe extends JFrame implements ActionListener {
     JTextField searchtextfield;
     JComboBox comboBox;
     static Main m;
+    int keycount=15;
+    int lockcount=15;
     public static void main(String[] args) {
         //UIManager.put("OptionPane.buttonFont", new FontUIResource(new   java.awt.Font("Dialog",   0,   12)));
 // 设置文本显示效果
@@ -176,6 +178,42 @@ class MainJframe extends JFrame implements ActionListener {
         jtakey.setText("");
         jtalock.setText("");
         System.out.println("keys infer"+keys);
+        int newkeycount=kb.length;
+        int newlockcount=lb.length;
+        int keychange;
+        int lockchange;
+        int[] k=null;
+        int[] l=null;
+        if(newkeycount>keycount)
+        {
+            keychange=newkeycount-keycount;
+            keycount=newkeycount;
+             k=new int[keychange];
+           for(int x=0;x<keychange;x++)
+           {
+               k[x]=m.getKeyCounter()-x-1;
+           }
+        }else{
+            keycount=newkeycount;
+        }
+
+        if(newlockcount>lockcount)
+        {
+            lockchange=newlockcount-lockcount;
+            lockcount=newlockcount;
+            l=new int[lockchange];
+            for(int x=0;x<lockchange;x++)
+            {
+                l[x]=m.getLockCounter()-x-1;
+            }
+        }else{
+            lockcount=newlockcount;
+        }
+
+//        for(int x=0;x<l.length;x++)   //遍历
+//        {
+//            System.out.println(l[x]);
+//        }
 
         for(int x=0;x<kb.length;x++)
         {
@@ -188,12 +226,48 @@ class MainJframe extends JFrame implements ActionListener {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            jtakey.append("Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
+            if(k!=null)
+            {
+                Boolean status=false;
+                for(int y=0;y<k.length;y++)
+                {
+                    if(id==k[y])
+                    {
+                        jtakey.append("●Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
+                      status=true;
+                    }
+                }
+              if(status==true)
+{
+
+    continue;
+}
+            }
+
+
+            jtakey.append("   Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
         }
 
         for(int x=0;x<lb.length;x++)
         {
-            jtalock.append("Lock [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
+            if(l!=null)
+            {
+                Boolean status=false;
+                for(int y=0;y<l.length;y++)
+                {
+                    if(lb[x].getID()==l[y])
+                    {
+                        jtalock.append("●Lock [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
+                        status=true;
+                    }
+                }
+                if(status==true)
+                {
+
+                    continue;
+                }
+            }
+            jtalock.append("   Lock [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
         }
 
 
@@ -274,12 +348,12 @@ class MainJframe extends JFrame implements ActionListener {
 //        System.out.println("name02 = " + kb[1].getID());
         for(int x=0;x<kb.length;x++)
         {
-            jtakey.append("Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
+            jtakey.append("   Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
         }
 
         for(int x=0;x<lb.length;x++)
         {
-            jtalock.append("Lock [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
+            jtalock.append("   Lock [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
         }
 
     }

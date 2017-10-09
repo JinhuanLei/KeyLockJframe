@@ -10,6 +10,7 @@ public class AddComboJframe extends JFrame implements ActionListener {
 //    JRadioButton radioButton1;
 //    JRadioButton radioButton2;
 //    boolean selected;
+    static Boolean status;
     public static void main(String args[])
     {
         AddComboJframe akj=new AddComboJframe();
@@ -70,7 +71,7 @@ public class AddComboJframe extends JFrame implements ActionListener {
 
 
     public void actionPerformed(ActionEvent e) {
-        Boolean status=false;
+         status=false;
         String source = e.getActionCommand();
         if(source=="Submit")
         {
@@ -90,8 +91,6 @@ public class AddComboJframe extends JFrame implements ActionListener {
             dispose();
 
         }
-
-
 
     if(status==true)
     {
