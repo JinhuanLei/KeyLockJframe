@@ -111,7 +111,7 @@ class MainJframe extends JFrame implements ActionListener {
             comboBox=new JComboBox();
            comboBox.addItem("Search a key");
            comboBox.addItem("Search a lock");
-           comboBox.setBounds(130,450,120,30);
+           comboBox.setBounds(130,450,140,30);
            panel.add(comboBox);
 
            searchtextfield = new JTextField();

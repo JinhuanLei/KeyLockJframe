@@ -50,8 +50,9 @@ public class StartJframe extends JFrame implements ActionListener {
          * setBounds(x, y, width, height)
          * x 和 y 指定左上角的新位置，由 width 和 height 指定新的大小。
          */
-        nameLable.setBounds(640,160,300,150);
-        nameLable.setFont(new   java.awt.Font("Dialog",   1,   40));
+        nameLable.setBounds(540,160,440,150);
+        nameLable.setFont(new   java.awt.Font("SANS_SERIF",   1,   60));
+
         panel.add(nameLable);
 
 
