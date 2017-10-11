@@ -42,6 +42,12 @@ public class LockInferJframe extends JFrame implements ActionListener {
         panel.add(jta);
         showdata();
 
+        JButton updateButton = new JButton("Add the key");
+        updateButton.setPreferredSize(new Dimension(180,30));
+        updateButton.setFont(new   java.awt.Font("Dialog",   1,   20));
+        updateButton.setBounds(20, 270, 180, 50);
+        panel.add(updateButton);
+        updateButton.addActionListener(this);
 
         JButton deleteButton = new JButton("Delete the key");
         deleteButton.setPreferredSize(new Dimension(180,30));
@@ -141,7 +147,14 @@ public class LockInferJframe extends JFrame implements ActionListener {
         {
 refreshdata();
         }
+
+        if(source=="Add the key")
+        {
+            new AddKeyJframe(li.getID());
+        }
     }
+
+
 
 
 }

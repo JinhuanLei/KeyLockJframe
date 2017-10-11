@@ -170,8 +170,12 @@ class MainJframe extends JFrame implements ActionListener {
         k1=m.getAllKeys();
         l1=m.getAllLocks();
         kl1=m.getAllCombos();
-        String keys= cj.set2json(m.getAllKeys());
-        String locks= cj.set2json(m.getAllLocks());
+        TreeSet<Key1> ts=new TreeSet<Key1>(new MyCompareK());
+        ts.addAll(k1);
+        TreeSet<Lock1>   ts2=new TreeSet<Lock1>(new MyCompareL());
+        ts2.addAll(l1);
+        String keys= cj.set2json(ts);
+        String locks= cj.set2json(ts2);
         String combos= cj.set2json(m.getAllCombos());
         keybean[] kb=new Gson().fromJson(keys,keybean[].class);
         lockbean[] lb=new Gson().fromJson(locks,lockbean[].class);
@@ -338,17 +342,14 @@ class MainJframe extends JFrame implements ActionListener {
         k1=m.getAllKeys();
         l1=m.getAllLocks();
         kl1=m.getAllCombos();
-         TreeSet<Key1> ts=new TreeSet<Key1>(new MyCompare());
+         TreeSet<Key1> ts=new TreeSet<Key1>(new MyCompareK());
          ts.addAll(k1);
-
-
+      TreeSet<Lock1>   ts2=new TreeSet<Lock1>(new MyCompareL());
+         ts2.addAll(l1);
 //        System.out.println(ts);
-        for(Key1 k:ts)
-        {
-            System.out.println(k.getID());
-        }
+
         String keys= cj.set2json(ts);
-        String locks= cj.set2json(m.getAllLocks());
+        String locks= cj.set2json(ts2);
         String combos= cj.set2json(m.getAllCombos());
         keybean[] kb=new Gson().fromJson(keys,keybean[].class);
         lockbean[] lb=new Gson().fromJson(locks,lockbean[].class);
@@ -368,12 +369,25 @@ class MainJframe extends JFrame implements ActionListener {
     }
 }
 
-class MyCompare  implements Comparator
+class MyCompareK  implements Comparator
 {
 
     public int compare(Object o1, Object o2) {
         Key1 k1=(Key1) o1;
         Key1 k2=(Key1) o2;
+        return new Integer(k1.getID()).compareTo(new Integer(k2.getID()));
+
+
+    }
+}
+
+
+class MyCompareL implements Comparator
+{
+
+    public int compare(Object o1, Object o2) {
+        Lock1 k1=(Lock1) o1;
+        Lock1 k2=(Lock1) o2;
         return new Integer(k1.getID()).compareTo(new Integer(k2.getID()));
 
 

@@ -10,6 +10,7 @@ public class AddKeyJframe extends JFrame implements ActionListener {
     JRadioButton radioButton1;
     JRadioButton radioButton2;
     boolean selected;
+    int lockid;
     public static void main(String args[])
     {
         AddKeyJframe akj=new AddKeyJframe();
@@ -17,6 +18,18 @@ public class AddKeyJframe extends JFrame implements ActionListener {
 
     public AddKeyJframe()
     {
+        this.setTitle("Add");
+        this.setBounds(640, 360, 550, 360);
+        JPanel panel2 = new JPanel();
+        this.add(panel2);
+        placeComponents(panel2);
+        this.setVisible(true);
+        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public AddKeyJframe(int lockid)
+    {
+        this.lockid=lockid;
         this.setTitle("Add");
         this.setBounds(640, 360, 550, 360);
         JPanel panel2 = new JPanel();
@@ -35,9 +48,14 @@ public class AddKeyJframe extends JFrame implements ActionListener {
         jl.setFont(new   java.awt.Font("Dialog",   1,   20));
         panel.add(jl);
 
+
        jtf=new JTextField();
         jtf.setBounds(150,50,120,30);
         panel.add(jtf);
+        if(lockid!=0)
+        {
+            jtf.setText(""+lockid);
+        }
 
         JLabel j2=new JLabel("Key Type :");
         j2.setBounds(50,100,120,30);
