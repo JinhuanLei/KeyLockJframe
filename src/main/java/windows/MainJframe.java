@@ -12,8 +12,10 @@ import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.TreeSet;
 
 class MainJframe extends JFrame implements ActionListener {
     HashSet<Key1> k1=null;
@@ -168,7 +170,6 @@ class MainJframe extends JFrame implements ActionListener {
         k1=m.getAllKeys();
         l1=m.getAllLocks();
         kl1=m.getAllCombos();
-
         String keys= cj.set2json(m.getAllKeys());
         String locks= cj.set2json(m.getAllLocks());
         String combos= cj.set2json(m.getAllCombos());
@@ -337,8 +338,16 @@ class MainJframe extends JFrame implements ActionListener {
         k1=m.getAllKeys();
         l1=m.getAllLocks();
         kl1=m.getAllCombos();
+         TreeSet<Key1> ts=new TreeSet<Key1>(new MyCompare());
+         ts.addAll(k1);
 
-        String keys= cj.set2json(m.getAllKeys());
+
+//        System.out.println(ts);
+        for(Key1 k:ts)
+        {
+            System.out.println(k.getID());
+        }
+        String keys= cj.set2json(ts);
         String locks= cj.set2json(m.getAllLocks());
         String combos= cj.set2json(m.getAllCombos());
         keybean[] kb=new Gson().fromJson(keys,keybean[].class);
@@ -355,6 +364,18 @@ class MainJframe extends JFrame implements ActionListener {
         {
             jtalock.append("   Lock [ ID: "+lb[x].getID()+" roomNumber: "+lb[x].getRoomNumber()+"]"+"\r\n");
         }
+
+    }
+}
+
+class MyCompare  implements Comparator
+{
+
+    public int compare(Object o1, Object o2) {
+        Key1 k1=(Key1) o1;
+        Key1 k2=(Key1) o2;
+        return new Integer(k1.getID()).compareTo(new Integer(k2.getID()));
+
 
     }
 }
