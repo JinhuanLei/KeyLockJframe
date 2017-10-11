@@ -160,7 +160,37 @@ class MainJframe extends JFrame implements ActionListener {
         }
 
     }
+    public String judgeKeys(String sid,Boolean type)
+    {
+        int id=Integer.parseInt(sid);
 
+        try {
+
+            ConvertJson cj=new ConvertJson();
+            String lock=cj.set2json(MainJframe.m.searchLocksOpenedByGivenKey(id));
+            lockbean[] lb=new Gson().fromJson(lock,lockbean[].class);
+            if(lb.length>1)
+            {
+
+                return "Master key";
+            }
+            else {
+                if (type==true)
+                {
+
+                    return "Physical key";
+                }
+                else{
+                    return "Swipe card";
+                }
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static void UpdateKeyFunction() {
         new UpdateKeyJframe();
     }
@@ -238,7 +268,7 @@ class MainJframe extends JFrame implements ActionListener {
                 {
                     if(id==k[y])
                     {
-                        jtakey.append("●Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
+                        jtakey.append("●Key [ ID: "+kb[x].getID()+" type: "+judgeKeys(kb[x].getID(),kb[x].isType())+"]"+"\r\n");
                       status=true;
                     }
                 }
@@ -250,7 +280,7 @@ class MainJframe extends JFrame implements ActionListener {
             }
 
 
-            jtakey.append("   Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
+            jtakey.append("   Key [ ID: "+kb[x].getID()+" type: "+judgeKeys(kb[x].getID(),kb[x].isType())+"]"+"\r\n");
         }
 
         for(int x=0;x<lb.length;x++)
@@ -358,7 +388,7 @@ class MainJframe extends JFrame implements ActionListener {
 //        System.out.println("name02 = " + kb[1].getID());
         for(int x=0;x<kb.length;x++)
         {
-            jtakey.append("   Key [ ID: "+kb[x].getID()+" type: "+kb[x].isType()+"]"+"\r\n");
+            jtakey.append("   Key [ ID: "+kb[x].getID()+" type: "+judgeKeys(kb[x].getID(),kb[x].isType())+"]"+"\r\n");
         }
 
         for(int x=0;x<lb.length;x++)
