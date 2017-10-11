@@ -17,9 +17,25 @@ public class DeleteKeyJframe extends JFrame implements ActionListener {
     JTextField jtf2;
 
     int keyid1;
+    int lockid1;
+    int status=0;
     public DeleteKeyJframe(int keyid2)
     {
         keyid1=keyid2;
+        status=0;
+        this.setTitle("Delete");
+        this.setBounds(640, 360, 550, 360);
+        JPanel panel2 = new JPanel();
+        this.add(panel2);
+        placeComponents(panel2);
+        this.setVisible(true);
+
+        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    public DeleteKeyJframe(int lockid2,String str)
+    {
+        lockid1=lockid2;
+        status=1;                 //1 是锁  0是key
         this.setTitle("Delete");
         this.setBounds(640, 360, 550, 360);
         JPanel panel2 = new JPanel();
@@ -55,6 +71,10 @@ public class DeleteKeyJframe extends JFrame implements ActionListener {
         jtf2=new JTextField();
         jtf2.setBounds(160,100,120,30);
         panel.add(jtf2);
+        if(lockid1!=0)
+        {
+            jtf2.setText(String.valueOf(lockid1));
+        }
 
         JButton submitButton=new JButton("Submit");
         submitButton.setPreferredSize(new Dimension(100,30));
